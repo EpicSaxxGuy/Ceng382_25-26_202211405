@@ -1,18 +1,38 @@
-function updateClock() {
-    let now = new Date();
-    let timeString = now.toLocaleTimeString();
-    document.getElementById("clock").textContent = timeString;
+
+const loginButton = document.querySelector("button");
+if (loginButton) {
+    loginButton.addEventListener("click", function () {
+        const username = document.getElementById("username").value;
+        const password = document.getElementById("password").value;
+
+        if (username === "admin" && password === "admin") {
+            window.location.href = "table.html";
+        } else {
+            alert("Invalid username or password. Please try again.");
+        }
+    });
 }
 
 
-setInterval(updateClock, 1000);
-updateClock();
+const classForm = document.getElementById("classForm");
+if (classForm) {
+    classForm.addEventListener("submit", function (event) {
+        event.preventDefault();
 
-document.addEventListener("keydown", function(event) {
-    if (event.key.toLowerCase() === "h") {
-        let forms = document.querySelectorAll("form");
-        forms.forEach(form => {
-            form.classList.toggle("hidden");
-        });
-    }
-});
+
+        const className = document.getElementById("className").value;
+        const numPeople = document.getElementById("numPeople").value;
+        const description = document.getElementById("description").value;
+
+
+        const table = document.getElementById("classTable").getElementsByTagName("tbody")[0];
+        const newRow = table.insertRow();
+
+
+        newRow.insertCell(0).textContent = className;
+        newRow.insertCell(1).textContent = numPeople;
+        newRow.insertCell(2).textContent = description;
+
+        classForm.reset();
+    });
+}
