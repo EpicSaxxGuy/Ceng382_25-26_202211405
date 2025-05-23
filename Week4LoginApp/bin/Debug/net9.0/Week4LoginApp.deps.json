@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v9.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v9.0": {
+      "Week4LoginApp/1.0.0": {
+        "runtime": {
+          "Week4LoginApp.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Week4LoginApp/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
