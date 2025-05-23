@@ -1,0 +1,87 @@
+﻿@page
+@model Week5FormApp.Pages.IndexModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<h2 class="text-center">Class Entry and Listing</h2>
+
+<div class="container mt-4">
+    <div class="row">
+        <!-- Form -->
+        <div class="col-md-5"> 
+            @if (Model.ClassInfo != null)
+            {
+                <form method="post">
+                    <input type="hidden" asp-for="EditId" />
+                    <div class="form-group">
+                        <label asp-for="ClassInfo.ClassName"></label>
+                        <input asp-for="ClassInfo.ClassName" class="form-control" />
+                        <span asp-validation-for="ClassInfo.ClassName" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="ClassInfo.StudentCount"></label>
+                        <input asp-for="ClassInfo.StudentCount" class="form-control" />
+                        <span asp-validation-for="ClassInfo.StudentCount" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="ClassInfo.Description"></label>
+                        <input asp-for="ClassInfo.Description" class="form-control" />
+                        <span asp-validation-for="ClassInfo.Description" class="text-danger"></span>
+                    </div>
+
+                    @if (Model.EditId == 0)
+                    {
+                        <button type="submit" class="btn btn-primary" asp-page-handler="Add">Add Class</button>
+                    }
+                    else
+                    {
+                        <button type="submit" class="btn btn-warning" asp-page-handler="Update">Update Class</button>
+                    }
+                </form> 
+            }
+        </div>
+
+        <!-- Table -->
+        <div class="col-md-7">
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Class Name</th>
+                        <th>Student Count</th>
+                        <th>Description</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in IndexModel.ClassList)
+                    {
+                        <tr>
+                            <td>@item.Id</td>
+                            <td>@item.ClassName</td>
+                            <td>@item.StudentCount</td>
+                            <td>@item.Description</td>
+                            <td>
+                                <form method="post" class="d-inline">
+                                    <input type="hidden" name="id" value="@item.Id" />
+                                    <button type="submit" class="btn btn-sm btn-danger"
+                                        asp-page-handler="Delete">Delete</button>
+                                </form>
+                                <form method="post" class="d-inline">
+                                    <input type="hidden" name="id" value="@item.Id" />
+                                    <button type="submit" class="btn btn-sm btn-secondary"
+                                        asp-page-handler="Edit">Edit</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
