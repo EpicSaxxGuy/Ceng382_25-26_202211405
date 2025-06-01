@@ -1,0 +1,60 @@
+﻿@page
+@model Week6FormApp.Pages.IndexModel
+@{
+    ViewData["Title"] = "Class Table";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-4">
+            <h4>Filter Classes</h4>
+            <form method="get" class="mb-4">
+                <div class="form-group mb-2">
+                    <label for="filterInput">Class Name</label>
+                    <input type="text" class="form-control" id="filterInput" name="ClassNameFilter"
+                        value="@Model.ClassNameFilter" placeholder="e.g. A1 or B">
+                </div>
+                <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+        </div>
+
+        
+        <div class="col-md-8">
+            <h4>Results</h4>
+            <table class="table table-striped table-bordered">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Class Name</th>
+                        <th>Student Count</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var cls in Model.AllClasses)
+                    {
+                        <tr>
+                            <td>@cls.ClassName</td>
+                            <td>@cls.StudentCount</td>
+                            <td>@cls.Description</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            
+            <nav aria-label="Pagination">
+                <ul class="pagination justify-content-center">
+                    @for (int i = 1; i <= Model.TotalPages; i++)
+                    {
+                        <li class="page-item @(i == Model.Page ? "active" : "")">
+                            <a class="page-link" asp-page="./Index" asp-route-Page="@i"
+                                asp-route-ClassNameFilter="@Model.ClassNameFilter">
+                                @i
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
